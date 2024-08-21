@@ -9,6 +9,7 @@ type TProps = {
 type TContext = {
   isMobile: boolean;
   isDrawerOpen: boolean;
+  isLoggedIn: boolean;
   setIsDrawerOpen: (state: boolean) => void;
 };
 
@@ -18,10 +19,12 @@ type TAction = { type: "TOGGLE_DRAWER" };
 
 type TState = {
   drawerState: boolean;
+  isLoggedIn: boolean;
 };
 
 const initialState: TState = {
   drawerState: false,
+  isLoggedIn: false,
 };
 
 const drawerReducer = (state: TState, action: TAction): TState => {
@@ -51,6 +54,7 @@ export const AppContextProvider = ({ children }: TProps) => {
         isDrawerOpen: state.drawerState,
         setIsDrawerOpen: toggleDrawer,
         isMobile: width < 800,
+        isLoggedIn: false,
       }}
     >
       {children}
