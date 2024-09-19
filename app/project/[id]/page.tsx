@@ -1,7 +1,7 @@
 "use client";
 
-import ModulesRenderer from "@/components/ModulesRenderer";
-import useAppContext from "@/contexts/AppContext";
+import ModulesRenderer from "@/core/components/ModulesRenderer";
+import useAppContext from "@/core/contexts/AppContext";
 import { PROJECTS, TProject } from "@/tmpData";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { Divider } from "@mui/material";

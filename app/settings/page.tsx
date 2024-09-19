@@ -1,8 +1,8 @@
 "use client";
 
-import MembersList from "@/components/MembersList";
-import UserInfo from "@/components/UserInfo";
-import useAppContext from "@/contexts/AppContext";
+import MembersList from "@/core/components/MembersList";
+import UserInfo from "@/core/components/UserInfo";
+import useAppContext from "@/core/contexts/AppContext";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { Divider } from "@mui/material";
 import clsx from "clsx";
@@ -13,7 +13,6 @@ type Props = {};
 const page = (props: Props) => {
   const { isDrawerOpen, setIsDrawerOpen, isMobile } = useAppContext();
   const [selectedTab, setSelectedTab] = useState<"info" | "members">("info");
-  console.log({ selectedTab });
 
   return (
     <main className={clsx("pl-24 pt-12 pr-12", { "pl-64": isDrawerOpen })}>
@@ -44,7 +43,7 @@ const page = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className="w-3/4 text-xl text-green-500">
+        <div className="w-3/4 text-xl ">
           {selectedTab === "info" ? <UserInfo /> : <MembersList />}
         </div>
       </div>

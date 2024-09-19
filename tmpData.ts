@@ -9,27 +9,21 @@ export type TUSER = {
     link: string;
   } | null;
 };
+
 export type TProject = {
   id: string;
   key: string;
   name: string;
-  isFavorite: boolean;
+  isFavorite: "0" | "1";
+  organizationId: string;
+  teamId: string;
 };
 export type TTeam = {
   id: string;
   name: string;
+  description: string;
+  organizationId: string;
   projects: TProject[];
-};
-export type TORGNAIZTION = {
-  id: string;
-  displayName: string;
-  key: string;
-  userInfo: TUSER;
-  teams: TTeam[];
-  picture: {
-    id: string;
-    link: string;
-  };
 };
 
 export type TMember = {
@@ -54,7 +48,7 @@ export type TTask = {
   id: string;
   type: "TASK" | "MACRO";
   priority: "URGENT" | "HIGH" | "MEDIUM" | "LOW";
-  status: "CLOSED" | "IN_PROGRESS" | "TO_DO" | "READY_FOR_REVIEW" | 'ERROR';
+  status: "CLOSED" | "IN_PROGRESS" | "TO_DO" | "READY_FOR_REVIEW" | "ERROR";
   title: string;
   assignee: TUSER;
   module: TModule;
@@ -235,69 +229,7 @@ export const MEMBERS: TMember[] = [
     },
   },
 ];
-export const ORGANIZATIONS: TORGNAIZTION = {
-  id: "9c3f6020-97e9-11e9-89fa-771de3ee85df",
-  key: "ld",
-  displayName: "Lasting Dynamics",
-  userInfo: {
-    id: "878f3128-2d6c-11ef-9d99-37e1f2fb4f37",
-    role: "USER",
-    fullName: "Abdelrahman Baher",
-    email: "abdelrahmanbaher2@gmail.com",
-    thumbPicture: {
-      id: "5515debf-b0e2-4cba-8bec-7fb9f022874e",
-      link: "thumb/user/daaf/08f9bd3b-8532-4d46-ab4a-56c9b64edaaf.jpg",
-    },
-  },
-  picture: {
-    id: "ac5f425d-7035-4523-b827-8aae7e833fb1",
-    link: "thumb/organisation/a3cd/4c800824-3add-48a4-b80e-3c4d49d4a3cd.jpg",
-  },
-  teams: [
-    {
-      id: "c9175214-d3cc-11e9-bcb5-3b6d0ac34161",
-      name: "LD Academy",
-      projects: [
-        {
-          id: "0661fc5c-ddd0-11e9-ac32-eb396f188290",
-          key: "BET",
-          name: "👨🏻‍💻 Back-End Training",
-          isFavorite: true,
-        },
-        {
-          id: "3e75a2e2-0570-11eb-a05f-230d481b200a",
-          key: "AOC",
-          name: "🧑‍💻 Front-End Web & Mobile",
-          isFavorite: true,
-        },
-        {
-          id: "452ece30-7a16-11ec-a581-2f8f899f1989",
-          key: "QT",
-          name: "QA Training",
-          isFavorite: false,
-        },
-        {
-          id: "a5af209a-85c7-11ec-a132-a74f96bf54b4",
-          key: "UXT",
-          name: "👨‍🎨 UI/UX Training",
-          isFavorite: false,
-        },
-        {
-          id: "32b0afdc-9ae9-11ec-93e6-0720c8d79d99",
-          key: "PM",
-          name: "👨‍💼 PM & QA",
-          isFavorite: false,
-        },
-        {
-          id: "91324286-593e-11ee-8228-b7ccfb303521",
-          key: "UNITY",
-          name: "Unity",
-          isFavorite: false,
-        },
-      ],
-    },
-  ],
-};
+
 export const TASKS: TTask[] = [
   {
     id: "965237e0-2d6d-11ef-bc8c-b7659e1e243b",
