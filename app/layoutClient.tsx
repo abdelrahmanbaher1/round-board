@@ -14,7 +14,6 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { usePathname } from "next/navigation";
 import React from "react";
-import { AuthContextProvider } from "@/core/contexts/AuthContext";
 
 type TProps = {
   children: React.ReactNode;
@@ -49,16 +48,14 @@ const LayoutClient = ({ children }: TProps) => {
 
   return (
     <AppContextProvider>
-      <AuthContextProvider>
-        <AppRouterCacheProvider options={{ key: "css" }}>
-          <QueryClientProvider client={queryClient}>
-            <DndProvider backend={HTML5Backend}>
-              {showSideBar && <SideBar />}
-              {children}
-            </DndProvider>
-          </QueryClientProvider>
-        </AppRouterCacheProvider>
-      </AuthContextProvider>
+      <AppRouterCacheProvider options={{ key: "css" }}>
+        <QueryClientProvider client={queryClient}>
+          <DndProvider backend={HTML5Backend}>
+            {showSideBar && <SideBar />}
+            {children}
+          </DndProvider>
+        </QueryClientProvider>
+      </AppRouterCacheProvider>
     </AppContextProvider>
   );
 };

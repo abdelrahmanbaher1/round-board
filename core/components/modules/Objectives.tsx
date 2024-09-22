@@ -26,7 +26,7 @@ const Objectives = () => {
   const [tmp, organizationId, projectId] = pathname.split("/");
   const userId = document.cookie.split(";")[1].split("=")[1];
   const ref = useRef<HTMLDivElement>(null);
-  const { isViewed, isInView, reset } = useIsInViewport({ ref });
+  const { isInView, reset } = useIsInViewport({ ref });
   const [currPage, setCurrPage] = useState(1);
   const [objectives, setObjectives] = useState<TObjective[]>([]);
 

@@ -2,22 +2,19 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 /**
  * @param ref Target element
- * @returns { isInView, timesInView }
+ * @returns { isInView, reset }
  */
 const THRESHOLD = 0.75;
 const OBSERVATION_TIMEOUT = 1500;
 
 const useIsInViewport = ({ ref }: { ref: React.RefObject<Element> }) => {
   const [isInView, setIsInView] = useState(false);
-  const timesInView = useRef(0);
   let observationTimeout: NodeJS.Timeout;
   const observer = useMemo(() => {
     return new IntersectionObserver(
       (entries) => {
         const { intersectionRatio, isIntersecting } = entries[0];
-        if (isIntersecting && intersectionRatio >= THRESHOLD) {
-          timesInView.current += 1;
-        }
+
         setIsInView(isIntersecting);
       },
       { threshold: THRESHOLD }
@@ -26,7 +23,6 @@ const useIsInViewport = ({ ref }: { ref: React.RefObject<Element> }) => {
 
   const reset = () => {
     setIsInView(false);
-    timesInView.current = 0;
   };
 
   useEffect(() => {
@@ -47,8 +43,6 @@ const useIsInViewport = ({ ref }: { ref: React.RefObject<Element> }) => {
   }, []);
   return {
     isInView,
-    timesInView: timesInView.current,
-    isViewed: !!timesInView.current,
     reset,
   };
 };

@@ -2,7 +2,7 @@ const nextJest = require("next/jest");
 
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
-  dir: "./",
+  dir: ".",
   coverageThreshold: {
     global: {
       statements: 80,
@@ -19,11 +19,11 @@ const customJestConfig = {
   testEnvironment: "jsdom",
   collectCoverage: true,
   collectCoverageFrom: [
-    "components/**/*.{js,jsx,ts,tsx}",
+    "core/components/**/*.{js,jsx,ts,tsx}",
     "!app/**/*.d.ts",
     "!components/**/*.d.ts",
     "!app/**/index.{js,ts,tsx}",
-    "!components/**/index.{js,ts,tsx}",
+    "!core/components/**/index.{js,ts,tsx}",
   ],
   coverageReporters: ["json", "html", "text"],
   coverageDirectory: "coverage",

@@ -62,13 +62,12 @@ const ObjectivesList = forwardRef<HTMLDivElement, TProps>(
           title,
           isChecked: true,
         }));
-      } else {
-        const randomCount = Math.floor(Math.random() * randomTitles.length) + 1;
-        return randomTitles.slice(0, randomCount).map((title) => ({
-          title,
-          isChecked: true,
-        }));
       }
+      const randomCount = Math.floor(Math.random() * randomTitles.length) + 1;
+      return randomTitles.slice(0, randomCount).map((title) => ({
+        title,
+        isChecked: true,
+      }));
     };
 
     const handlePrevious = () => {

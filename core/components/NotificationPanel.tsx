@@ -8,16 +8,17 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 import CloseIcon from "@/core/assets/icons/CloseIcon";
 import DeleteIcon from "@/core/assets/icons/DeleteIcon";
 import FolderIcon from "@/core/assets/icons/FolderIcon";
 import HorizontalDotsIcon from "@/core/assets/icons/HorizontalDotsIcon";
 import NewIcon from "@/core/assets/icons/NewIcon";
-import { TObjective } from "./modules/Objectives";
+import { TCheckMark, TObjective } from "./modules/Objectives";
 import PriorityDropDown from "./PriorityDropDown";
 import useParamState from "@/core/hooks/useParamState";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
