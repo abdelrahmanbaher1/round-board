@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Alert,
+} from "@mui/material";
 import TaskPriority from "./TaskPriority";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getApiInstance } from "@/core/server/api";
@@ -9,12 +15,11 @@ import SpinnerLoader from "./Loaders/SpinnerLoader";
 
 type TProps = {
   selectedPriority: "URGENT" | "HIGH" | "MEDIUM" | "LOW";
-  currPage: number;
 };
 
 const OPTIONS = ["URGENT", "HIGH", "MEDIUM", "LOW"];
 
-const PriorityDropDown = ({ selectedPriority, currPage }: TProps) => {
+const PriorityDropDown = ({ selectedPriority }: TProps) => {
   const [priority, setPriority] = useState<string>(selectedPriority);
   const [param, setParam, getParamUrl] = useParamState("id", "");
 
@@ -47,6 +52,9 @@ const PriorityDropDown = ({ selectedPriority, currPage }: TProps) => {
       console.error("Error deleting ticket:", error);
     },
   });
+
+  isSuccess && <Alert title="ticket Updated !" />;
+
   return (
     <FormControl variant="outlined">
       <InputLabel id="priority-label">Priority</InputLabel>

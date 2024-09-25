@@ -31,8 +31,6 @@ const DevelopmentTaskList = ({
       onTaskDrop(item.id, status, hoverIndex as number);
     },
     hover: (item, monitor) => {
-      console.log({ item });
-
       const clientOffset = monitor.getClientOffset();
       const hoverPosition = clientOffset?.y ?? 0;
       const currentCardIndex = findHoveredTaskIndex(hoverPosition);
@@ -90,7 +88,10 @@ const DevelopmentTaskList = ({
 
   if (isLoading)
     return (
-      <div className={"bg-gray-100 rounded-md p-2 min-w-[300px]"} ref={drop}>
+      <div
+        className={"bg-gray-100 rounded-md p-2 min-w-[300px]"}
+        ref={drop as any}
+      >
         <span className="text-sm flex gap-3 items-center py-2 text-gray-700 ml-1.5">
           {title}
           <Badge text={taskCards.length} status={status} />
@@ -105,7 +106,7 @@ const DevelopmentTaskList = ({
 
   return (
     <div
-      ref={drop}
+      ref={drop as any}
       className={"bg-gray-100 rounded-md p-2 min-w-[300px]"}
       style={{ backgroundColor: getBackgroundColor() }}
     >
