@@ -54,14 +54,6 @@ export type TTask = {
   module: TModule;
 };
 
-export type TRound = {
-  id: string;
-  status: "DONE" | "IN_PROGRESS";
-  start_date: string;
-  end_date: string;
-  teamMembers: TMember[];
-};
-
 const MODULES: TModule[] = [
   {
     id: "e8e89fbc-06f7-11eb-893c-3fce5b7b87d9",
@@ -1166,113 +1158,5 @@ export const TASKS: TTask[] = [
       },
     },
     module: MODULES[Math.floor(Math.random() * MODULES.length)],
-  },
-];
-
-export const RETROSPECTIVES: TRound[] = [
-  {
-    id: "1",
-    status: "IN_PROGRESS",
-    start_date: "2024-08-01T10:00:00Z",
-    end_date: "2024-08-07T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "2",
-    status: "DONE",
-    start_date: "2024-07-01T10:00:00Z",
-    end_date: "2024-07-07T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "3",
-    status: "IN_PROGRESS",
-    start_date: "2024-08-15T10:00:00Z",
-    end_date: "2024-08-21T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "4",
-    status: "DONE",
-    start_date: "2024-06-01T10:00:00Z",
-    end_date: "2024-06-07T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "5",
-    status: "IN_PROGRESS",
-    start_date: "2024-09-01T10:00:00Z",
-    end_date: "2024-09-07T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "6",
-    status: "DONE",
-    start_date: "2024-05-01T10:00:00Z",
-    end_date: "2024-05-07T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "7",
-    status: "IN_PROGRESS",
-    start_date: "2024-09-15T10:00:00Z",
-    end_date: "2024-09-21T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "8",
-    status: "DONE",
-    start_date: "2024-04-01T10:00:00Z",
-    end_date: "2024-04-07T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "9",
-    status: "IN_PROGRESS",
-    start_date: "2024-10-01T10:00:00Z",
-    end_date: "2024-10-07T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "10",
-    status: "DONE",
-    start_date: "2024-03-01T10:00:00Z",
-    end_date: "2024-03-07T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "11",
-    status: "IN_PROGRESS",
-    start_date: "2024-10-15T10:00:00Z",
-    end_date: "2024-10-21T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "12",
-    status: "DONE",
-    start_date: "2024-02-01T10:00:00Z",
-    end_date: "2024-02-07T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "13",
-    status: "IN_PROGRESS",
-    start_date: "2024-11-01T10:00:00Z",
-    end_date: "2024-11-07T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "14",
-    status: "DONE",
-    start_date: "2024-01-01T10:00:00Z",
-    end_date: "2024-01-07T17:00:00Z",
-    teamMembers: MEMBERS,
-  },
-  {
-    id: "15",
-    status: "IN_PROGRESS",
-    start_date: "2024-11-15T10:00:00Z",
-    end_date: "2024-11-21T17:00:00Z",
-    teamMembers: MEMBERS,
   },
 ];

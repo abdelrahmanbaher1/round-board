@@ -13,14 +13,19 @@ const TaskCard = ({ task, onClick }: { task: TTask; onClick: () => void }) => {
       isDragging: monitor.isDragging(),
     }),
   });
+  
 
   return (
     <div
-      ref={drag}
+      ref={drag as any}
       className={`bg-white w-[284px] min-h-[105px] p-2.5 rounded-md mb-2 text-sm hover:cursor-pointer hover:shadow-xl flex flex-col gap-3 ${
-        isDragging ? "opacity-0.5" : ""
+        isDragging ? "opacity-50 bg-blue-500" : ""
       }`}
       onClick={onClick}
+      style={{
+        opacity: isDragging ? 0.5 : 1,
+        transition: "opacity 0.2s ease",
+      }}
     >
       <div className="flex flex-row font-semibold items-center justify-between">
         <div className="flex items-center gap-2">

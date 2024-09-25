@@ -1,14 +1,15 @@
-import { TTask } from "@/tmpData";
 import React from "react";
 import TaskItem from "./TaskItem";
 import { Divider } from "@mui/material";
+import { TTicket } from "../server/definations";
 
 type TProps = {
-  tasks: TTask[];
+  tasks: TTicket[];
   title: string;
+  isLoading: boolean;
 };
 
-const TaskList = ({ tasks, title }: TProps) => {
+const TaskList = ({ tasks, title, isLoading }: TProps) => {
   return (
     <>
       <div>
@@ -18,12 +19,23 @@ const TaskList = ({ tasks, title }: TProps) => {
         </span>
       </div>
       <ul className="max-h-[200px] overflow-y-scroll ">
-        {tasks.map((task) => (
+        {isLoading ? (
           <>
-            <TaskItem key={task.id} taskItem={task} />
-            <Divider />
+            {Array.from({ length: 5 }).map((_, idx) => (
+              <li key={idx} className="flex flex-col gap-2 p-2">
+                <div className="h-3 bg-gray-300 rounded-md animate-pulse w-full" />
+                <Divider />
+              </li>
+            ))}
           </>
-        ))}
+        ) : (
+          tasks.map((task) => (
+            <>
+              <TaskItem key={task.id} taskItem={task} />
+              <Divider />
+            </>
+          ))
+        )}
       </ul>
     </>
   );

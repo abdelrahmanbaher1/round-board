@@ -7,10 +7,15 @@ export class TicketService {
   getTicketsForProject = async (
     projectId: string,
     userId: string,
-    page: number
+    page?: number,
+    isPaginated?: boolean
   ) => {
+    const url =
+      `${this.baseURL}/?projectId=${projectId}&userId=${userId}` +
+      (isPaginated ? `&page=${page}` : "");
+
     return await getData({
-      url: `${this.baseURL}/?projectId=${projectId}&userId=${userId}&page=${page}`,
+      url: url,
       method: "GET",
       errorMessage: "Could not get tickets for project",
     });
@@ -34,7 +39,7 @@ export class TicketService {
   updateTicketPriority = async (ticketId: string, newPriority: string) =>
     await getData({
       url: `${this.baseURL}/${ticketId}`,
-      method: "PUT",
+      method: "PATCH",
       errorMessage: "cannot update this ticket ",
       body: { newPriority },
     });

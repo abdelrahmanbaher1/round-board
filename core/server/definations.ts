@@ -25,12 +25,24 @@ export type TOrganization = {
   displayName: string;
   key: string;
 };
+
+export type TTicketStatus =
+  | "OPEN"
+  | "IN_PROGRESS"
+  | "CLOSED"
+  | "READY_FOR_REVIEW"
+  | "ERROR";
+
+export type TTicketPriority = "URGENT" | "HIGH" | "MEDIUM" | "LOW";
+
 export type TTicket = {
   id: string;
   title: string;
   description: string;
-  status: "OPEN" | "IN_PROGRESS" | "CLOSED" | "READY_FOR_REVIEW" | "ERROR";
-  priority: "URGENT" | "HIGH" | "MEDIUM" | "LOW";
+  status: TTicketStatus;
+  priority: TTicketPriority;
+  userId: string;
+  projectId: string;
 };
 
 export type GetCurrentUserResponse = {

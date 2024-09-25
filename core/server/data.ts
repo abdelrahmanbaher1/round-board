@@ -10,7 +10,7 @@ export async function getData<T>({
   signal,
 }: {
   url: string;
-  method: "GET" | "POST" | "PUT" | "DELETE";
+  method: "GET" | "POST" | "PUT" | "DELETE" | 'PATCH';
   body?: object;
   customHeaders?: HeadersInit;
   errorMessage: string;

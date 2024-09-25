@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import DevelopmentTaskList from "../DevelopmentTaskList";
 import { TASKS, TTask } from "@/tmpData";
-import { useSearchParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { REACT_QUERY_KEYS } from "@/core/lib/constants";
+import useAppContext from "@/core/contexts/AppContext";
+import { getApiInstance } from "@/core/server/api";
 
 const TASK_STATUS = [
   { title: "To Do", status: "TO_DO" },
@@ -12,16 +17,40 @@ const TASK_STATUS = [
 ];
 
 const Development = () => {
+  const { projectId } = useAppContext();
+
+  const userId = document.cookie.split(";")[1].split("=")[1];
+
+  const {
+    data: projectData,
+    isLoading: isProjectDataLoading,
+    isFetched: isProjectDataFetched,
+    isSuccess,
+  } = useQuery({
+    queryKey: [REACT_QUERY_KEYS.GET_TICKETS, projectId],
+    queryFn: () =>
+      getApiInstance().ticket.getTicketsForProject(
+        projectId,
+        userId,
+        undefined,
+        false
+      ),
+  });
   const [tasks, setTasks] = useState<TTask[]>(TASKS);
 
-  const handleTaskDrop = (taskId: string, newStatus: string) => {
+  const handleTaskDrop = (
+    taskId: string,
+    newStatus: string,
+    hoverIndex: number
+  ) => {
     setTasks((prevTasks) => {
       const taskToMove = prevTasks.find((task) => task.id === taskId);
       if (!taskToMove) return prevTasks;
 
       const updatedTasks = prevTasks.filter((task) => task.id !== taskId);
-      const updatedTask = { ...taskToMove, status: newStatus };
-      return [...updatedTasks, updatedTask];
+
+      updatedTasks.splice(hoverIndex, 0, { ...taskToMove, status: newStatus });
+      return updatedTasks;
     });
   };
   const sortedTasks = tasks.sort((a, b) => {
@@ -40,6 +69,7 @@ const Development = () => {
           )}
           status={task.status}
           onTaskDrop={handleTaskDrop}
+          isLoading={isProjectDataLoading}
         />
       ))}
     </ul>

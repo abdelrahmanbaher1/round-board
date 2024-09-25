@@ -8,11 +8,9 @@ import {
   Skeleton,
   Box,
 } from "@mui/material";
-import AvatarUpload from "./AvatarUpload";
 import { useQuery } from "@tanstack/react-query";
 import { REACT_QUERY_KEYS } from "@/core/lib/constants";
 import { getApiInstance } from "@/core/server/api";
-import SkeletonLoader from "./Loaders/SkeletonLoader";
 import TextInput from "./TextInput";
 
 type Props = {};

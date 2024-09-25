@@ -12,14 +12,8 @@ import {
   PlusIcon,
   UserCircleIcon,
   QuestionMarkCircleIcon,
-  UsersIcon,
 } from "@heroicons/react/24/outline";
-import {
-  ExpandMore,
-  PeopleAlt,
-  Star,
-  KeyboardArrowRight,
-} from "@mui/icons-material";
+import { ExpandMore, PeopleAlt, KeyboardArrowRight } from "@mui/icons-material";
 import Link from "next/link";
 import clsx from "clsx";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -29,7 +23,7 @@ import CustomModal from "./CustomModal";
 import TeamCreationForm from "./Dashboard/TeamCreationForm";
 import SideBarSkeleton from "./Loaders/SideBarSkeleton";
 import TeamsList from "./TeamsList";
-import SmallLogo from "@/core/assets/icons/smallLogo";
+import SmallLogo from "@/core/assets/icons/SmallLogo";
 import { GetCurrentUserResponse, TError } from "@/core/server/definations";
 
 const IconWrapper = (

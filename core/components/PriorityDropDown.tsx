@@ -53,7 +53,7 @@ const PriorityDropDown = ({ selectedPriority, currPage }: TProps) => {
       <Select
         labelId="priority-label"
         value={priority}
-        onChange={handleChange}
+        onChange={() => handleChange}
         label="Priority"
       >
         {OPTIONS.map((option) => (

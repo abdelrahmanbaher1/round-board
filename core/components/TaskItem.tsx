@@ -1,21 +1,21 @@
-import { TTask } from "@/tmpData";
-
-import Image from "next/image";
-import { Divider } from "@mui/material";
 import TaskPriority from "./TaskPriority";
 import TaskType from "./TaskType";
+import { TTicket } from "../server/definations";
 
 type TProps = {
-  taskItem: TTask;
+  taskItem: TTicket;
 };
 
 const TaskItem = ({ taskItem }: TProps) => {
-  const { id, type, priority, status, title, assignee } = taskItem;
+  const { id, priority, title } = taskItem;
 
+  const TYPES = ["MACRO", "TASK"];
   return (
     <li className="flex gap-2 overflow-hidden border border-transparent hover:border-gray-400 hover:bg-gray-100 p-2 hover:rounded-md ">
       <TaskPriority priority={priority} />
-      <TaskType type={type} />
+      <TaskType
+        type={TYPES[Math.floor(Math.random() * 2)] as "MACRO" | "TASK"}
+      />
 
       {id.slice(0, 4)}
 

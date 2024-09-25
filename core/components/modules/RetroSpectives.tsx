@@ -12,8 +12,7 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
-import { MEMBERS, RETROSPECTIVES } from "@/tmpData";
-import MemberInfo from "../MemberInfo";
+import { RETROSPECTIVES } from "@/tmpData";
 import RoundInfo from "../RoundInfo";
 
 interface Column {

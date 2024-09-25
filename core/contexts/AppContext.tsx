@@ -12,25 +12,30 @@ type TContext = {
   isLoggedIn: boolean;
   setIsDrawerOpen: (state: boolean) => void;
   organizationId: string;
-  setOrganizationId: (id: string) => void; // Correct type for setting organizationId
+  setOrganizationId: (id: string) => void;
+  projectId: string;
+  setProjectId: (id: string) => void;
 };
 
 const AppContext = React.createContext<TContext | null>(null);
 
 type TAction =
   | { type: "TOGGLE_DRAWER" }
-  | { type: "SET_ORGANIZATION"; payload: string };
+  | { type: "SET_ORGANIZATION"; payload: string }
+  | { type: "SET_PROJECT"; payload: string };
 
 type TState = {
   drawerState: boolean;
   isLoggedIn: boolean;
   organizationId: string;
+  projectId: string;
 };
 
 const initialState: TState = {
   drawerState: false,
   isLoggedIn: false,
   organizationId: "",
+  projectId: "",
 };
 
 const appReducer = (state: TState, action: TAction): TState => {
@@ -43,7 +48,12 @@ const appReducer = (state: TState, action: TAction): TState => {
     case "SET_ORGANIZATION":
       return {
         ...state,
-        organizationId: action.payload, // Update organizationId with payload
+        organizationId: action.payload,
+      };
+    case "SET_PROJECT":
+      return {
+        ...state,
+        projectId: action.payload,
       };
     default:
       return state;
@@ -61,11 +71,17 @@ export const AppContextProvider = ({ children }: TProps) => {
 
   const setOrganizationId = useCallback(
     (id: string) => {
-      dispatch({ type: "SET_ORGANIZATION", payload: id }); // Pass the organizationId as payload
+      dispatch({ type: "SET_ORGANIZATION", payload: id });
     },
     [dispatch]
   );
 
+  const setProjectId = useCallback(
+    (id: string) => {
+      dispatch({ type: "SET_PROJECT", payload: id });
+    },
+    [dispatch]
+  );
   return (
     <AppContext.Provider
       value={{
@@ -74,7 +90,9 @@ export const AppContextProvider = ({ children }: TProps) => {
         isMobile: width < 800,
         isLoggedIn: state.isLoggedIn,
         organizationId: state.organizationId,
-        setOrganizationId, // Expose the setOrganizationId function
+        setOrganizationId,
+        projectId: state.projectId,
+        setProjectId,
       }}
     >
       {children}

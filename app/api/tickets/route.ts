@@ -39,7 +39,9 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const projectId = searchParams.get("projectId");
     const userId = searchParams.get("userId");
-    const page = Number(searchParams.get("page"));
+    const page = searchParams.get("page")
+      ? Number(searchParams.get("page"))
+      : null;
 
     if (!projectId || !userId) {
       return NextResponse.json(
@@ -48,10 +50,7 @@ export async function GET(request: Request) {
       );
     }
 
-    const pageSize = 10;
-    const offset = (page - 1) * pageSize;
-
-    const result = await db
+    let query = db
       .select({
         ...tickets,
         fullName: users.fullName,
@@ -60,9 +59,15 @@ export async function GET(request: Request) {
       .innerJoin(projects, eq(tickets.projectId, projects.id))
       .innerJoin(users, eq(tickets.userId, users.id))
       .where(eq(tickets.projectId, projectId))
-      .where(eq(tickets.userId, userId))
-      .limit(pageSize)
-      .offset(offset);
+      .where(eq(tickets.userId, userId));
+
+    if (page && page > 0) {
+      const pageSize = 10;
+      const offset = (page - 1) * pageSize;
+      query = query.limit(pageSize).offset(offset);
+    }
+
+    const result = await query;
 
     return NextResponse.json(result, { status: 200 });
   } catch (error) {

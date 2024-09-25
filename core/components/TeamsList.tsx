@@ -10,7 +10,6 @@ import {
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import React, { useState } from "react";
-import useAppContext from "@/core/contexts/AppContext";
 
 type TProject = {
   id: string;
@@ -31,29 +30,13 @@ type TTeamsData = {
 };
 
 type TProps = {
-  isTeamsDataSuccess: boolean;
   teamsData: TTeamsData[];
-  id: string;
   isOpen: boolean;
-  handleClose: () => void;
-  handleToggle: () => void;
   isLoading: boolean;
 };
 
-const TeamsList = ({
-  isTeamsDataSuccess,
-  teamsData,
-  id,
-  isOpen,
-  handleClose,
-  handleToggle,
-  isLoading,
-}: TProps) => {
-  const [hover, setHover] = useState("");
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const [isClicked, setIsClicked] = useState<string[]>([]);
+const TeamsList = ({ teamsData, isOpen, isLoading }: TProps) => {
   const expandIcon = isOpen ? <ExpandMore /> : <KeyboardArrowRight />;
-  const { isDrawerOpen } = useAppContext();
 
   const [collapse, setCollapse] = useState<Number[]>([]);
 
@@ -82,7 +65,7 @@ const TeamsList = ({
             className="flex items-center justify-around w-full"
           >
             {item.teams.name}
-            <IconButton sx={{ color: "white", p: "0" }} onClick={handleToggle}>
+            <IconButton sx={{ color: "white", p: "0" }}>
               {expandIcon}
             </IconButton>
           </ListItemButton>

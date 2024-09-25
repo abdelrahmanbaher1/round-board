@@ -9,8 +9,6 @@ type TProps = {
 };
 const ModulesRenderer = ({ module }: TProps) => {
   switch (module) {
-    case "retrospectives":
-      return <RetroSpectives />;
     case "development":
       return <Development />;
     case "objectives":

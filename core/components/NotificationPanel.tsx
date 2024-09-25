@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Checkbox,
   Drawer,
@@ -8,17 +7,16 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 
 import CloseIcon from "@/core/assets/icons/CloseIcon";
 import DeleteIcon from "@/core/assets/icons/DeleteIcon";
 import FolderIcon from "@/core/assets/icons/FolderIcon";
 import HorizontalDotsIcon from "@/core/assets/icons/HorizontalDotsIcon";
 import NewIcon from "@/core/assets/icons/NewIcon";
-import { TCheckMark, TObjective } from "./modules/Objectives";
+import { TObjective } from "./modules/Objectives";
 import PriorityDropDown from "./PriorityDropDown";
 import useParamState from "@/core/hooks/useParamState";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -66,10 +64,9 @@ const NotificationPanel = ({
     queryKey: [REACT_QUERY_KEYS.GET_TICKET_DATA, param],
     queryFn: async ({ signal }) => {
       try {
-        console.log("Fetching ticket with signal:", signal);
         return await getApiInstance().ticket.getTicketById(param, signal);
       } catch (error) {
-        if (error.name === "AbortError") {
+        if ((error as Error).name === "AbortError") {
           console.log("Query aborted");
         } else {
           console.error("Error fetching ticket data:", error);

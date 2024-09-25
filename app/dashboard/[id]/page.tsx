@@ -1,45 +1,63 @@
 "use client";
 
 import useAppContext from "@/core/contexts/AppContext";
-import { ORGANIZATIONS, TASKS } from "@/tmpData";
 import { ArrowRightIcon, BellIcon } from "@heroicons/react/24/outline";
 import { Divider } from "@mui/material";
 import clsx from "clsx";
 import Image from "next/image";
 import dashboardIcon from "@/core/assets/svgs/user-laptop.svg";
 import ProjectCard from "@/core/components/ProjectCard";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TaskList from "@/core/components/TaskList";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { REACT_QUERY_KEYS } from "@/core/lib/constants";
 import { getApiInstance } from "@/core/server/api";
 import DashBoardSkelton from "@/core/components/Loaders/DashBoardSkelton";
-import {
-  GetOrganizationDataResponse,
-  TProject,
-} from "@/core/server/definations";
+import { TProject, TTicket } from "@/core/server/definations";
 
 type TProps = {
   params: { id: string };
 };
 
 const Page = ({ params }: TProps) => {
-  const { isDrawerOpen, isMobile } = useAppContext();
+  const { isDrawerOpen, isMobile, setProjectId } = useAppContext();
+
+  const [selectedProject, setSelectedProject] = useState<TProject>(
+    {} as TProject
+  );
+  const userId = document.cookie.split(";")[1].split("=")[1];
 
   const { data, isLoading, isFetched, isError } = useQuery({
     queryKey: [REACT_QUERY_KEYS.GET_ORGANIZATION_DATA, params.id],
     queryFn: () => getApiInstance().organization.getOrganization(params.id),
   });
+  const {
+    data: projectData,
+    isLoading: isProjectDataLoading,
+    isFetched: isProjectDataFetched,
+  } = useQuery({
+    queryKey: [REACT_QUERY_KEYS.GET_TICKETS, selectedProject.id],
+    queryFn: () =>
+      getApiInstance().ticket.getTicketsForProject(
+        selectedProject.id,
+        userId,
+        undefined,
+        false
+      ),
+  });
 
-  const [selectedProject, setSelectedProject] = useState<TProject | null>(
-    {} as TProject
-  );
+  let TodoTasks: TTicket[] = [];
+  let ReadyForReviewTasks: TTicket[] = [];
+  if (isProjectDataFetched) {
+    TodoTasks = (projectData as TTicket[]).filter(
+      (ticket) => ticket.status === "OPEN"
+    );
 
-  const toDo_Tasks = TASKS.filter((task) => task.status === "TO_DO");
-  const readyForReviewTasks = TASKS.filter(
-    (task) => task.status === "READY_FOR_REVIEW"
-  );
+    ReadyForReviewTasks = (projectData as TTicket[]).filter(
+      (ticket) => ticket.status === "READY_FOR_REVIEW"
+    );
+  }
 
   if (isLoading) return <DashBoardSkelton />;
 
@@ -59,8 +77,8 @@ const Page = ({ params }: TProps) => {
               <h2 className="text-xl text-gray-700">Welcome Back,</h2>
               <p className="mt-2 pl-1 text-gray-700 max-w-full">
                 In <strong>{selectedProject?.name}</strong> you have{" "}
-                <strong>{toDo_Tasks.length}</strong> tasks to accomplish and{" "}
-                <strong>{readyForReviewTasks.length}</strong> reviews left in
+                <strong>{TodoTasks.length}</strong> tasks to accomplish and{" "}
+                <strong>{ReadyForReviewTasks.length}</strong> reviews left in
                 your current iteration.
               </p>
             </div>
@@ -69,7 +87,7 @@ const Page = ({ params }: TProps) => {
           <div>
             <h3 className="mt-10 mb-10">Favorite Projects</h3>
             <ul className="flex gap-4 overflow-scroll md:flex-wrap md:gap-12">
-              {projects.map((project: TProject) => (
+              {((projects as TProject[]) ?? []).map((project: TProject) => (
                 <li
                   key={project.id}
                   onClick={() => setSelectedProject(project)}
@@ -90,14 +108,26 @@ const Page = ({ params }: TProps) => {
               <Link
                 href={`/${params.id}/${selectedProject?.id}`}
                 className="text-sm text-slate-500 flex items-center gap-2 hover:cursor-pointer hover:text-blue-500"
+                onClick={() => {
+                  console.log({ selectedProject });
+                  setProjectId(selectedProject?.id);
+                }}
               >
                 Go To Project <ArrowRightIcon width={20} height={20} />
               </Link>
             )}
           </span>
           <div className="flex flex-col gap-5">
-            <TaskList tasks={toDo_Tasks} title="TODOS" />
-            <TaskList tasks={readyForReviewTasks} title="Pending Reviews" />
+            <TaskList
+              tasks={TodoTasks}
+              title="TODOS"
+              isLoading={isProjectDataLoading}
+            />
+            <TaskList
+              tasks={ReadyForReviewTasks}
+              title="Pending Reviews"
+              isLoading={isProjectDataLoading}
+            />
           </div>
         </div>
       </div>

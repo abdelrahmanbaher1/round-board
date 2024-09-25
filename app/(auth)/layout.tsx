@@ -1,5 +1,5 @@
 import RoundRushLogo from "@/core/assets/svgs/RoundRushLogo.svg";
-import subLogo from "@/subLogo.svg";
+import subLogo from "@/core/assets/svgs/sub-header.svg";
 import Image from "next/image";
 import { Metadata } from "next";
 

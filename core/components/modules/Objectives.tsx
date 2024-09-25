@@ -3,7 +3,6 @@ import { getApiInstance } from "@/core/server/api";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import React, { useRef, useState, useEffect } from "react";
-import DashBoardSkelton from "../Loaders/DashBoardSkelton";
 import { TTicket } from "@/core/server/definations";
 import ObjectivesList from "../ObjectivesList";
 import useIsInViewport from "@/core/hooks/useInViewPort";
@@ -15,8 +14,6 @@ export type TCheckMark = {
 };
 
 export type TObjective = TTicket & {
-  projectId: string;
-  userId: string;
   fullName: string;
   checkMarks: TCheckMark[];
 };
@@ -40,9 +37,14 @@ const Objectives = () => {
   const { data, isLoading, isFetched } = useInfiniteQuery({
     queryKey: [REACT_QUERY_KEYS.GET_TICKETS, currPage],
     queryFn: () =>
-      getApiInstance().ticket.getTicketsForProject(projectId, userId, currPage),
+      getApiInstance().ticket.getTicketsForProject(
+        projectId,
+        userId,
+        currPage,
+        true
+      ),
     initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getNextPageParam: (lastPage: any) => lastPage.nextCursor,
   });
 
   useEffect(() => {
