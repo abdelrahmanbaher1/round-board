@@ -1,10 +1,6 @@
-import { TRound } from "@/tmpData";
 import React from "react";
-import Image from "next/image";
 import { Avatar, Tooltip } from "@mui/material";
 
-import memberAvatar from "@/tmp.svg";
-import ownerBadge from "@/ownerBadge.svg";
 
 type TProps = {
   round: TRound;

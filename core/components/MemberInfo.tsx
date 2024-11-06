@@ -1,7 +1,5 @@
-import { TMember } from "@/tmpData";
 import React from "react";
-import memberAvatar from "@/tmp.svg";
-import ownerBadge from "@/ownerBadge.svg";
+import ownerBadge from "@/core/assets/svgs/ownerBadge.svg"
 
 import Image from "next/image";
 
@@ -35,7 +33,6 @@ const MemberInfo = ({ member }: TProps) => {
       style={{ gap: "0px" }}
     >
       <div className="flex gap-2 items-center flex-1 ">
-        <Image src={memberAvatar} width={30} height={30} alt="Avatar" />
         <span className="text-base text-gray-700">
           {name}
           {isOwner && (
